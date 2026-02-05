@@ -27,7 +27,11 @@
 #include <SoapySDR/Device.hpp>
 #include <SoapySDR/Logger.h>
 #include <SoapySDR/Types.h>
+#if defined(__ANDROID__)
+#include <rtl-sdr-android.h>
+#else
 #include <rtl-sdr.h>
+#endif
 #include <stdexcept>
 #include <thread>
 #include <mutex>

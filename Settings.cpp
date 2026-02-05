@@ -60,6 +60,26 @@ SoapyRTLSDR::SoapyRTLSDR(const SoapySDR::Kwargs &args):
 {
     if (args.count("label") != 0) SoapySDR_logf(SOAPY_SDR_INFO, "Opening %s...", args.at("label").c_str());
 
+#if defined(__ANDROID__)
+
+    if (args.count("fd") == 0)
+        throw std::runtime_error("Android RTL-SDR requires 'fd' argument");
+
+    int fd = std::stoi(args.at("fd"));
+
+    const char *usbfs = nullptr;
+    if (args.count("usbfs") != 0)
+        usbfs = args.at("usbfs").c_str();
+
+    SoapySDR_logf(SOAPY_SDR_INFO,
+                  "Opening RTL-SDR via Android fd=%d usbfs=%s",
+                  fd, usbfs ? usbfs : "(null)");
+
+    if (rtlsdr_open2(&dev, fd, usbfs) != 0)
+        throw std::runtime_error("rtlsdr_open2() failed");
+
+#else
+
     //if a serial is not present, then findRTLSDR had zero devices enumerated
     if (args.count("serial") == 0) throw std::runtime_error("No RTL-SDR devices found!");
 
@@ -74,6 +94,8 @@ SoapyRTLSDR::SoapyRTLSDR(const SoapySDR::Kwargs &args):
     if (rtlsdr_open(&dev, deviceId) != 0) {
         throw std::runtime_error("Unable to open RTL-SDR device");
     }
+
+#endif
 
     //extract min/max overall gain range
     int num_gains = rtlsdr_get_tuner_gains(dev, nullptr);
