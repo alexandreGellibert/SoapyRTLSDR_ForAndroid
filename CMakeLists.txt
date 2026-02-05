@@ -27,5 +27,4 @@ target_link_libraries(SoapyRTLSDR PRIVATE
 set_target_properties(SoapyRTLSDR PROPERTIES
         PREFIX "lib"
         SUFFIX ".so"
-        LIBRARY_OUTPUT_DIRECTORY ${ANDROID_JNI_LIBS_DIR}
 )
