@@ -53,7 +53,9 @@ static std::vector<SoapySDR::Kwargs> findRTLSDR(const SoapySDR::Kwargs &args)
     std::vector<SoapySDR::Kwargs> results;
 
     char manufact[256], product[256], serial[256];
-
+#if defined(__ANDROID__)
+    return results;
+#endif
     const size_t this_count = rtlsdr_get_device_count();
 
     for (size_t i = 0; i < this_count; i++)

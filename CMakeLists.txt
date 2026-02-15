@@ -10,10 +10,7 @@ add_library(SoapyRTLSDR MODULE
 )
 
 # Includes
-target_include_directories(SoapyRTLSDR PRIVATE
-        ${CMAKE_SOURCE_DIR}/SoapySDR/include
-        ${CMAKE_SOURCE_DIR}/rtl-sdr/include
-)
+target_include_directories(SoapyRTLSDR PRIVATE)
 
 # Link libraries
 target_link_libraries(SoapyRTLSDR PRIVATE
@@ -24,8 +21,8 @@ target_link_libraries(SoapyRTLSDR PRIVATE
         atomic
 )
 
-set_target_properties(SoapyRTLSDR PROPERTIES
-        PREFIX "lib"
-        SUFFIX ".so"
-        LIBRARY_OUTPUT_DIRECTORY ${ANDROID_JNI_LIBS_DIR}
-)
+#set_target_properties(SoapyRTLSDR PROPERTIES
+#        PREFIX "lib"
+#        SUFFIX ".so"
+#        LIBRARY_OUTPUT_DIRECTORY ${ANDROID_JNI_LIBS_DIR}
+#)
