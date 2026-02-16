@@ -75,8 +75,8 @@ SoapyRTLSDR::SoapyRTLSDR(const SoapySDR::Kwargs &args):
                   "Opening RTL-SDR via Android fd=%d usbfs=%s",
                   fd, usbfs ? usbfs : "(null)");
 
-    if (rtlsdr_open2(&dev, fd, usbfs) != 0)
-        throw std::runtime_error("rtlsdr_open2() failed");
+    if (rtlsdr_open(&dev, fd) != 0)
+        throw std::runtime_error("rtlsdr_open() failed");
 
 #else
 
