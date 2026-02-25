@@ -303,7 +303,7 @@ void SoapyRTLSDR::setGain(const int direction, const size_t channel, const std::
     {
         tunerGain = value;
         SoapySDR_logf(SOAPY_SDR_DEBUG, "Setting RTL-SDR Tuner Gain: %f", tunerGain);
-        rtlsdr_set_tuner_gain(dev, (int) tunerGain * 10.0);
+        rtlsdr_set_tuner_gain(dev, (int) (tunerGain * 10.0));
     }
 }
 
